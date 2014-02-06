@@ -18,6 +18,7 @@ If you do not know what you are doing <b>I suggest you download the full file.</
 
 
 <b>Report any errors to me <i><a href='http://shotbow.net/forum/conversations/add?to=SaxaphoneWalrus' target='_blank'>here!</a></i></b>
+<br>
 <i>But before doing so, make sure you have the Lua Plugin activated in TeamSpeak!</i>
  
 </body>
