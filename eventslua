@@ -1,0 +1,30 @@
+local blockPokes = false -- Set to 'true' if you wish for pokes to be disabled automatically.
+local disablePokeMessages = true -- Set this to 'false' if you wish for poke-messages to not be sent.
+
+local function onTextMessageEvent(serverConnectionHandlerID, targetMode, toID, fromID, fromName, fromUniqueIdentifier, message, ffIgnored)
+
+	if message:lower():find('togglepokes') then -- Toggle pokes for the current session.
+		blockPokes = not blockPokes
+		ts3.printMessageToCurrentTab('Hide Pokes: '..tostring(blockPokes))
+	end
+
+	if message:lower():find('togglenotifs') then -- Toggle the messages sent to you while your pokes are blocked!
+		disablePokeMessages = not disablePokeMessages
+		ts3.printMessageToCurrentTab('Disable Poke Messages: '..tostring(disablePokeMessages))
+	end
+end
+
+local function onClientPokeEvent(serverConnectionHandlerID, pokerID, pokerName, message, ffIgnored)
+	if not disablePokeMessages then
+		ts3.requestSendPrivateTextMsg(serverConnectionHandlerID, '\n[b]-------------------[ [color=#FF0000] {SAXBOT} [/color] ]-------------------[/b]\nUser [i][b]'..pokerName..'[/b][/i]  poked you saying;; \n[b][color=#280064]'..message..'[/color][/b]', ts3.getClientID(serverConnectionHandlerID))
+	end
+
+	if blockPokes then
+		return 1
+	end
+end
+
+phoenixfunctions_events = {
+	onTextMessageEvent = onTextMessageEvent,
+	onClientPokeEvent = onClientPokeEvent,
+}
